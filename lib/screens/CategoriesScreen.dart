@@ -49,7 +49,7 @@ class CategoriesScreen extends StatelessWidget {
                         ),
                       ),
                       onTap: () {
-                        // Aquí puedes manejar la navegación o lógica al seleccionar una categoría
+                        //Apartado de navegaciones
                       },
                     ),
                   );
@@ -62,7 +62,6 @@ class CategoriesScreen extends StatelessWidget {
     );
   }
 
-  // Función para asignar un color diferente a cada categoría
   Color _getCategoryColor(int index) {
     switch (index) {
       case 0:
