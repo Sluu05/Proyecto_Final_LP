@@ -92,14 +92,14 @@ class CategoryButton extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: 8),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: color, // Utiliza 'backgroundColor' en lugar de 'primary'
+          backgroundColor: color, 
           padding: EdgeInsets.symmetric(vertical: 20),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30),
           ),
         ),
         onPressed: () {
-          // Lógica para navegar a las preguntas de la categoría seleccionada
+          // Navegar
         },
         child: Text(
           categoryName,

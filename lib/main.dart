@@ -14,7 +14,7 @@ class TriviaLUJO extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: HomeScreen(),  // Define la pantalla de inicio
+      home: HomeScreen(),  
     );
   }
 }
