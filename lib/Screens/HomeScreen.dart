@@ -32,7 +32,7 @@ class HomeScreen extends StatelessWidget {
                 );
               },
               child: Text(
-                'Comenzar',
+                'Juguemos',
                 style: TextStyle(fontSize: 20, color: Colors.white),
               ),
             ),

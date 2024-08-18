@@ -1,4 +1,44 @@
 import 'package:flutter/material.dart';
+import 'dificulty_selecction.dart';
+
+
+class CategoryButton extends StatelessWidget {
+  final String categoryName;
+  final Color color;
+
+  CategoryButton({required this.categoryName, required this.color});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 8),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: color,
+          padding: EdgeInsets.symmetric(vertical: 20),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
+          ),
+        ),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => DifficultySelectionScreen(
+                category: categoryName,
+              ),
+            ),
+          );
+        },
+        child: Text(
+          categoryName,
+          style: TextStyle(fontSize: 20, color: Colors.black),
+        ),
+      ),
+    );
+  }
+}
+
 
 class CategoriesScreen extends StatelessWidget {
   final List<String> categories = [
@@ -31,27 +71,9 @@ class CategoriesScreen extends StatelessWidget {
               child: ListView.builder(
                 itemCount: categories.length,
                 itemBuilder: (context, index) {
-                  return Card(
-                    margin: EdgeInsets.symmetric(vertical: 10),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
+                   return CategoryButton(
+                    categoryName: categories[index],
                     color: _getCategoryColor(index),
-                    child: ListTile(
-                      title: Center(
-                        child: Text(
-                          categories[index],
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                      onTap: () {
-                        //Apartado de navegaciones
-                      },
-                    ),
                   );
                 },
               ),
@@ -77,35 +99,5 @@ class CategoriesScreen extends StatelessWidget {
       default:
         return Colors.grey[300]!;
     }
-  }
-}
-
-class CategoryButton extends StatelessWidget {
-  final String categoryName;
-  final Color color;
-
-  CategoryButton({required this.categoryName, required this.color});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 8),
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: color, 
-          padding: EdgeInsets.symmetric(vertical: 20),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
-          ),
-        ),
-        onPressed: () {
-          // Navegar
-        },
-        child: Text(
-          categoryName,
-          style: TextStyle(fontSize: 20, color: Colors.black),
-        ),
-      ),
-    );
   }
 }
