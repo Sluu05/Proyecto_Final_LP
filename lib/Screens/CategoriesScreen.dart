@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
-import 'dificulty_selecction.dart';
+import 'difficulty_selection.dart';
 
 
 class CategoryButton extends StatelessWidget {
   final String categoryName;
   final Color color;
+  final int categoryId; 
 
-  CategoryButton({required this.categoryName, required this.color});
+  CategoryButton({
+    required this.categoryName,
+    required this.color,
+    required this.categoryId, 
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -14,11 +19,11 @@ class CategoryButton extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: 8),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: color,
-          padding: EdgeInsets.symmetric(vertical: 20),
+          padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
+            borderRadius: BorderRadius.circular(20),
           ),
+          backgroundColor: color,
         ),
         onPressed: () {
           Navigator.push(
@@ -26,13 +31,14 @@ class CategoryButton extends StatelessWidget {
             MaterialPageRoute(
               builder: (context) => DifficultySelectionScreen(
                 category: categoryName,
+                categoryId: categoryId, 
               ),
             ),
           );
         },
         child: Text(
           categoryName,
-          style: TextStyle(fontSize: 20, color: Colors.black),
+          style: TextStyle(fontSize: 18, color: Colors.black),
         ),
       ),
     );
@@ -40,14 +46,15 @@ class CategoryButton extends StatelessWidget {
 }
 
 
+
 class CategoriesScreen extends StatelessWidget {
-  final List<String> categories = [
-    'Historia',
-    'Geografía',
-    'Ciencia',
-    'Deporte',
-    'Arte',
-  ];
+  final Map<String, int> categories = {
+    'Historia': 23,
+    'Geografía': 22,
+    'Ciencia': 17,
+    'Deporte': 21,
+    'Arte': 25,
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -71,9 +78,12 @@ class CategoriesScreen extends StatelessWidget {
               child: ListView.builder(
                 itemCount: categories.length,
                 itemBuilder: (context, index) {
-                   return CategoryButton(
-                    categoryName: categories[index],
+                  String categoryName = categories.keys.elementAt(index);
+                  int categoryId = categories.values.elementAt(index);
+                  return CategoryButton(
+                    categoryName: categoryName,
                     color: _getCategoryColor(index),
+                    categoryId: categoryId,
                   );
                 },
               ),

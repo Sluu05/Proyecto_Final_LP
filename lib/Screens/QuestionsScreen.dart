@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'ResultsScreen.dart';
+import 'TranslateGoogle.dart';
 
 class QuestionScreen extends StatefulWidget {
   final String category;
+  final int categoryId;  
   final String difficulty;
 
-  QuestionScreen({required this.category, required this.difficulty});
+  QuestionScreen({required this.category, required this.categoryId, required this.difficulty}); 
 
   @override
   _QuestionScreenState createState() => _QuestionScreenState();
@@ -15,6 +18,7 @@ class QuestionScreen extends StatefulWidget {
 class _QuestionScreenState extends State<QuestionScreen> {
   List questions = [];
   int currentQuestionIndex = 0;
+  int correctAnswers = 0;
 
   @override
   void initState() {
@@ -22,18 +26,49 @@ class _QuestionScreenState extends State<QuestionScreen> {
     fetchQuestions();
   }
 
-  Future<void> fetchQuestions() async {
+bool isLoading = false;
+
+Future<void> fetchQuestions() async {
+  setState(() {
+    isLoading = true;
+  });
+
+  try {
     final response = await http.get(
-        Uri.parse('https://opentdb.com/api.php?amount=10&category=${widget.category}&difficulty=${widget.difficulty}&type=multiple'));
-    
+      Uri.parse('https://opentdb.com/api.php?amount=10&category=${widget.categoryId}&difficulty=${widget.difficulty}&type=multiple'),
+    );
+
     if (response.statusCode == 200) {
+      List fetchedQuestions = json.decode(response.body)['results'];
+      List translatedQuestions = [];
+
+      for (var question in fetchedQuestions) {
+        String translatedQuestion = await translateText(question['question'], 'es');
+        List translatedAnswers = await Future.wait(
+            question['incorrect_answers'].map((answer) => translateText(answer, 'es')).toList());
+        String translatedCorrectAnswer = await translateText(question['correct_answer'], 'es');
+
+        translatedQuestions.add({
+          'question': translatedQuestion,
+          'incorrect_answers': translatedAnswers,
+          'correct_answer': translatedCorrectAnswer,
+        });
+      }
+
       setState(() {
-        questions = json.decode(response.body)['results'];
+        questions = translatedQuestions;
+        isLoading = false;
       });
     } else {
       throw Exception('Failed to load questions');
     }
+  } catch (e) {
+    setState(() {
+      isLoading = false;
+    });
+    print('Error fetching questions: $e');
   }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -91,6 +126,10 @@ class _QuestionScreenState extends State<QuestionScreen> {
   }
 
   void checkAnswer(bool isCorrect) {
+    if (isCorrect) {
+      correctAnswers++;
+    }
+
     showDialog(
       context: context,
       builder: (context) {
@@ -106,7 +145,15 @@ class _QuestionScreenState extends State<QuestionScreen> {
                 setState(() {
                   currentQuestionIndex++;
                   if (currentQuestionIndex >= questions.length) {
-                    currentQuestionIndex = 0;
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ResultsScreen(
+                          correctAnswers: correctAnswers,
+                          totalQuestions: questions.length,
+                        ),
+                      ),
+                    );
                   }
                 });
               },

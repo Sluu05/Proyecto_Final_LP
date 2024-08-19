@@ -3,8 +3,9 @@ import 'QuestionsScreen.dart';
 
 class DifficultySelectionScreen extends StatefulWidget {
   final String category;
+  final int categoryId;  
 
-  DifficultySelectionScreen({required this.category});
+  DifficultySelectionScreen({required this.category, required this.categoryId});
 
   @override
   _DifficultySelectionScreenState createState() => _DifficultySelectionScreenState();
@@ -82,6 +83,7 @@ class _DifficultySelectionScreenState extends State<DifficultySelectionScreen> {
                   MaterialPageRoute(
                     builder: (context) => QuestionScreen(
                       category: widget.category,
+                      categoryId: widget.categoryId,  
                       difficulty: selectedDifficulty,
                     ),
                   ),
