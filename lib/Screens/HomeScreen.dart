@@ -10,8 +10,6 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Image (image: AssetImage('assets/image/TriviaLUJO.png')),
-            SizedBox(height: 30),
             Text(
               '¡Prepárate para poner a prueba tu conocimiento!',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
