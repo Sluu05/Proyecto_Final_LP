@@ -1,5 +1,3 @@
-// QuestionsScreen.dart
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -122,7 +120,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
       ),
       child: Column(
         children: [
-          // Indicador de progreso
+         
           LinearPercentIndicator(
             percent: (currentQuestionIndex + 1) / questions.length,
             lineHeight: 8.0,
@@ -130,7 +128,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
             backgroundColor: Colors.white,
           ),
           SizedBox(height: 20),
-          // Contador de preguntas
+          
           Text(
             'Question ${currentQuestionIndex + 1} of ${questions.length}',
             style: GoogleFonts.poppins(
@@ -141,7 +139,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
             ),
           ),
           SizedBox(height: 20),
-          // Tarjeta de pregunta
+       
           Card(
             color: Colors.white.withOpacity(0.9),
             shape:
@@ -163,7 +161,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
             ),
           ),
           SizedBox(height: 30),
-          // Opciones de respuesta
+          
           Expanded(
             child: ListView.builder(
               itemCount: options.length,

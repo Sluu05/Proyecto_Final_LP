@@ -1,16 +1,14 @@
-// CategoriesScreen.dart
-
 import 'package:flutter/material.dart';
 import 'difficulty_screen.dart';
 
 class CategoryButton extends StatelessWidget {
   final String categoryName;
-  final String imageUrl; // Nuevo campo para la URL de la imagen
+  final String imageUrl; 
   final int categoryId;
 
   CategoryButton({
     required this.categoryName,
-    required this.imageUrl, // Asignar la URL de la imagen
+    required this.imageUrl, 
     required this.categoryId,
   });
 
@@ -20,7 +18,7 @@ class CategoryButton extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: 8),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.zero, // Sin padding para que la imagen cubra todo
+          padding: EdgeInsets.zero, 
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
@@ -67,23 +65,23 @@ class CategoriesScreen extends StatelessWidget {
   final Map<String, Map<String, dynamic>> categories = {
     'History': {
       'id': 23,
-      'imageUrl': 'https://example.com/history_image.jpg',
+      'imageUrl': 'https://res.cloudinary.com/dgsfowxsr/image/upload/v1724437369/historia_hr2jsf.png',
     },
     'Geography': {
       'id': 22,
-      'imageUrl': 'https://example.com/geography_image.jpg',
+      'imageUrl': 'https://res.cloudinary.com/dgsfowxsr/image/upload/v1724437369/Geografia_tsar3r.png',
     },
     'Science': {
       'id': 17,
-      'imageUrl': 'https://example.com/science_image.jpg',
+      'imageUrl': 'https://res.cloudinary.com/dgsfowxsr/image/upload/v1724437369/ciencia_cup2hi.png',
     },
     'Sport': {
       'id': 21,
-      'imageUrl': 'https://example.com/sport_image.jpg',
+      'imageUrl': 'https://res.cloudinary.com/dgsfowxsr/image/upload/v1724437369/deporte_ixkdmj.png',
     },
     'Art': {
       'id': 25,
-      'imageUrl': 'https://example.com/art_image.jpg',
+      'imageUrl': 'https://res.cloudinary.com/dgsfowxsr/image/upload/v1724437369/arte_abluia.png',
     },
   };
 

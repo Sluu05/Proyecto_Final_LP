@@ -107,7 +107,6 @@ class _QuestionScreenState extends State<QuestionScreen> {
                   currentQuestionIndex++;
                   if (currentQuestionIndex >= questions.length) {
                     currentQuestionIndex = 0;
-                    // Puedes agregar lógica para navegar de vuelta o mostrar resultados.
                   }
                 });
               },
