@@ -92,7 +92,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
           '${widget.category} Quiz',
           style: GoogleFonts.poppins(),
         ),
-        backgroundColor: Colors.green,
+        backgroundColor: Color.fromARGB(255, 81, 222, 244),
         elevation: 0,
         centerTitle: true,
       ),
@@ -120,7 +120,6 @@ class _QuestionScreenState extends State<QuestionScreen> {
       ),
       child: Column(
         children: [
-         
           LinearPercentIndicator(
             percent: (currentQuestionIndex + 1) / questions.length,
             lineHeight: 8.0,
@@ -128,7 +127,6 @@ class _QuestionScreenState extends State<QuestionScreen> {
             backgroundColor: Colors.white,
           ),
           SizedBox(height: 20),
-          
           Text(
             'Question ${currentQuestionIndex + 1} of ${questions.length}',
             style: GoogleFonts.poppins(
@@ -139,7 +137,6 @@ class _QuestionScreenState extends State<QuestionScreen> {
             ),
           ),
           SizedBox(height: 20),
-       
           Card(
             color: Colors.white.withOpacity(0.9),
             shape:
@@ -161,46 +158,44 @@ class _QuestionScreenState extends State<QuestionScreen> {
             ),
           ),
           SizedBox(height: 30),
-          
           Expanded(
-            child: ListView.builder(
-              itemCount: options.length,
-              itemBuilder: (context, index) {
-                String option = decodeHtml(options[index]);
-                bool isCorrect =
-                    option == decodeHtml(question['correct_answer']);
-                return GestureDetector(
-                  onTap: isAnswered ? null : () => checkAnswer(option),
-                  child: Container(
-                    margin: EdgeInsets.symmetric(vertical: 8),
-                    padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                    decoration: BoxDecoration(
-                      color: getOptionColor(option, isCorrect),
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        color: Colors.white70,
-                        width: 2,
-                      ),
-                    ),
-                    child: Text(
-                      option,
-                      style: GoogleFonts.poppins(
-                        textStyle: TextStyle(
-                          fontSize: 18,
-                          color: Colors.black87,
-                        ),
-                      ),
-                    ),
-                  ),
-                );
-              },
+  child: ListView.builder(
+    itemCount: options.length,
+    itemBuilder: (context, index) {
+      String option = decodeHtml(options[index]);
+      return GestureDetector(
+        onTap: isAnswered ? null : () => checkAnswer(option),
+        child: Container(
+          margin: EdgeInsets.symmetric(vertical: 8),
+          padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+          decoration: BoxDecoration(
+            color: getOptionColor(option),
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color: Colors.white70,
+              width: 2,
             ),
           ),
+          child: Text(
+            option,
+            style: GoogleFonts.poppins(
+              textStyle: TextStyle(
+                fontSize: 18,
+                color: Colors.black87,
+              ),
+            ),
+          ),
+        ),
+      );
+    },
+  ),
+),
+
+
           SizedBox(height: 20),
-          // Botón Siguiente
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.greenAccent,
+              backgroundColor: Color.fromARGB(255, 81, 222, 244),
               padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30),
@@ -226,17 +221,18 @@ class _QuestionScreenState extends State<QuestionScreen> {
     );
   }
 
-  Color getOptionColor(String option, bool isCorrect) {
-    if (!isAnswered) {
-      return Colors.white.withOpacity(0.8);
-    } else if (selectedAnswer == option) {
-      return isCorrect ? Colors.greenAccent : Colors.redAccent;
-    } else if (isCorrect) {
-      return Colors.greenAccent;
-    } else {
-      return Colors.white.withOpacity(0.8);
-    }
+Color getOptionColor(String option) {
+  if (!isAnswered) {
+    return Colors.white.withOpacity(0.8);
+  } else if (option == decodeHtml(questions[currentQuestionIndex]['correct_answer'])) {
+    return Colors.greenAccent;  // Resalta la correcta en verde
+  } else if (selectedAnswer == option) {
+    return Colors.redAccent;  // Resalta la incorrecta seleccionada en rojo
+  } else {
+    return Colors.white.withOpacity(0.8);
   }
+}
+
 }
 
 class HtmlUnescape {
@@ -244,7 +240,6 @@ class HtmlUnescape {
     return text
         .replaceAll('&quot;', '"')
         .replaceAll('&#039;', "'")
-        .replaceAll('&amp;', '&')
         .replaceAll('&lt;', '<')
         .replaceAll('&gt;', '>')
         .replaceAll('&eacute;', 'é')

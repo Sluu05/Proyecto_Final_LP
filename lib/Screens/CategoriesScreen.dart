@@ -90,7 +90,7 @@ class CategoriesScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('TriviaLUJO'),
-        backgroundColor: Colors.green,
+        backgroundColor: Color.fromARGB(255, 16, 162, 240),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

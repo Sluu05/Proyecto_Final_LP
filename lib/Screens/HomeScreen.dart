@@ -43,7 +43,7 @@ class HomeScreen extends StatelessWidget {
                     'Test your knowledge across various topics!',
                     style: GoogleFonts.poppins(
                       textStyle: TextStyle(
-                        color: Color.fromARGB(179, 255, 251, 134),
+                        color: const Color.fromARGB(179, 255, 255, 255),
                         fontSize: 18,
                       ),
                     ),
@@ -53,7 +53,7 @@ class HomeScreen extends StatelessWidget {
                   
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.greenAccent,
+                      backgroundColor: Color.fromARGB(255, 81, 222, 244),
                       padding:
                           EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                       shape: RoundedRectangleBorder(

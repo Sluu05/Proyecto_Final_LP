@@ -14,7 +14,7 @@ class ResultsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Results'),
-        backgroundColor: Colors.green,
+        backgroundColor: Color.fromARGB(255, 81, 222, 244),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -49,7 +49,7 @@ class ResultsScreen extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
-                backgroundColor: Colors.green,
+                backgroundColor: Color.fromARGB(255, 16, 162, 240),
               ),
               onPressed: () {
                 Navigator.pushReplacement(
@@ -69,7 +69,7 @@ class ResultsScreen extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
-                backgroundColor: Colors.green,
+                backgroundColor: Color.fromARGB(255, 16, 162, 240),
               ),
               onPressed: () {
                 Navigator.pop(context); 

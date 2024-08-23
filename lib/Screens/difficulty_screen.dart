@@ -19,7 +19,7 @@ class _DifficultySelectionScreenState extends State<DifficultySelectionScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Select Difficulty'),
-        backgroundColor: Colors.green,
+        backgroundColor:Color.fromARGB(255, 81, 222, 244),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -75,7 +75,7 @@ class _DifficultySelectionScreenState extends State<DifficultySelectionScreen> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
-                backgroundColor: Colors.green,
+                backgroundColor: Color.fromARGB(255, 16, 162, 240),
               ),
               onPressed: () {
                 Navigator.push(
