@@ -1,16 +1,17 @@
+// CategoriesScreen.dart
+
 import 'package:flutter/material.dart';
 import 'difficulty_screen.dart';
 
-
 class CategoryButton extends StatelessWidget {
   final String categoryName;
-  final Color color;
-  final int categoryId; 
+  final String imageUrl; // Nuevo campo para la URL de la imagen
+  final int categoryId;
 
   CategoryButton({
     required this.categoryName,
-    required this.color,
-    required this.categoryId, 
+    required this.imageUrl, // Asignar la URL de la imagen
+    required this.categoryId,
   });
 
   @override
@@ -19,11 +20,10 @@ class CategoryButton extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: 8),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+          padding: EdgeInsets.zero, // Sin padding para que la imagen cubra todo
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
-          backgroundColor: color,
         ),
         onPressed: () {
           Navigator.push(
@@ -31,14 +31,31 @@ class CategoryButton extends StatelessWidget {
             MaterialPageRoute(
               builder: (context) => DifficultySelectionScreen(
                 category: categoryName,
-                categoryId: categoryId, 
+                categoryId: categoryId,
               ),
             ),
           );
         },
-        child: Text(
-          categoryName,
-          style: TextStyle(fontSize: 18, color: Colors.black),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Image.network(
+                imageUrl,
+                width: double.infinity,
+                height: 100,
+                fit: BoxFit.cover,
+              ),
+            ),
+            Container(
+              color: Colors.black.withOpacity(0.5), // Fondo oscuro para el texto
+              child: Text(
+                categoryName,
+                style: TextStyle(fontSize: 18, color: Colors.white),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -46,14 +63,28 @@ class CategoryButton extends StatelessWidget {
 }
 
 
-
 class CategoriesScreen extends StatelessWidget {
-  final Map<String, int> categories = {
-    'History': 23,
-    'Geography': 22,
-    'Science': 17,
-    'Sport': 21,
-    'Art': 25,
+  final Map<String, Map<String, dynamic>> categories = {
+    'History': {
+      'id': 23,
+      'imageUrl': 'https://example.com/history_image.jpg',
+    },
+    'Geography': {
+      'id': 22,
+      'imageUrl': 'https://example.com/geography_image.jpg',
+    },
+    'Science': {
+      'id': 17,
+      'imageUrl': 'https://example.com/science_image.jpg',
+    },
+    'Sport': {
+      'id': 21,
+      'imageUrl': 'https://example.com/sport_image.jpg',
+    },
+    'Art': {
+      'id': 25,
+      'imageUrl': 'https://example.com/art_image.jpg',
+    },
   };
 
   @override
@@ -79,11 +110,13 @@ class CategoriesScreen extends StatelessWidget {
                 itemCount: categories.length,
                 itemBuilder: (context, index) {
                   String categoryName = categories.keys.elementAt(index);
-                  int categoryId = categories.values.elementAt(index);
+                 int? categoryId = categories[categoryName]?['id'];
+                 String? imageUrl = categories[categoryName]?['imageUrl'];
                   return CategoryButton(
                     categoryName: categoryName,
-                    color: _getCategoryColor(index),
-                    categoryId: categoryId,
+                    imageUrl: imageUrl ?? 'https://example.com/default-image.png',
+                    categoryId: categoryId ?? 0, 
+
                   );
                 },
               ),
@@ -92,22 +125,5 @@ class CategoriesScreen extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Color _getCategoryColor(int index) {
-    switch (index) {
-      case 0:
-        return Colors.lightGreen[200]!;
-      case 1:
-        return Colors.blue[100]!;
-      case 2:
-        return Colors.pink[100]!;
-      case 3:
-        return Colors.orange[200]!;
-      case 4:
-        return Colors.purple[100]!;
-      default:
-        return Colors.grey[300]!;
-    }
   }
 }
