@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'ResultsScreen.dart';
 
 class QuestionScreen extends StatefulWidget {
   final String category;
-  final int categoryId;  
   final String difficulty;
 
-  QuestionScreen({required this.category, required this.categoryId, required this.difficulty}); 
+  QuestionScreen({required this.category, required this.difficulty});
 
   @override
   _QuestionScreenState createState() => _QuestionScreenState();
@@ -17,7 +15,6 @@ class QuestionScreen extends StatefulWidget {
 class _QuestionScreenState extends State<QuestionScreen> {
   List questions = [];
   int currentQuestionIndex = 0;
-  int correctAnswers = 0;
 
   @override
   void initState() {
@@ -27,9 +24,8 @@ class _QuestionScreenState extends State<QuestionScreen> {
 
   Future<void> fetchQuestions() async {
     final response = await http.get(
-      Uri.parse('https://opentdb.com/api.php?amount=10&category=${widget.categoryId}&difficulty=${widget.difficulty}&type=multiple'),
-    );
-
+        Uri.parse('https://opentdb.com/api.php?amount=10&category=${widget.category}&difficulty=${widget.difficulty}&type=multiple'));
+    
     if (response.statusCode == 200) {
       setState(() {
         questions = json.decode(response.body)['results'];
@@ -95,18 +91,14 @@ class _QuestionScreenState extends State<QuestionScreen> {
   }
 
   void checkAnswer(bool isCorrect) {
-    if (isCorrect) {
-      correctAnswers++;
-    }
-
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text(isCorrect ? '¡Correct!' : 'Incorrect'),
+          title: Text(isCorrect ? '¡Correcto!' : 'Incorrecto'),
           content: Text(isCorrect
-              ? 'Good answer'
-              : 'The correct answer was: ${questions[currentQuestionIndex]['correct_answer']}'),
+              ? '¡Buena respuesta!'
+              : 'La respuesta correcta era: ${questions[currentQuestionIndex]['correct_answer']}'),
           actions: [
             TextButton(
               onPressed: () {
@@ -114,19 +106,12 @@ class _QuestionScreenState extends State<QuestionScreen> {
                 setState(() {
                   currentQuestionIndex++;
                   if (currentQuestionIndex >= questions.length) {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ResultsScreen(
-                          correctAnswers: correctAnswers,
-                          totalQuestions: questions.length,
-                        ),
-                      ),
-                    );
+                    currentQuestionIndex = 0;
+                    // Puedes agregar lógica para navegar de vuelta o mostrar resultados.
                   }
                 });
               },
-              child: Text('Next'),
+              child: Text('Siguiente'),
             ),
           ],
         );

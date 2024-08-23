@@ -5,13 +5,13 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              '¡Prepárate para poner a prueba tu conocimiento!',
+              'Get ready to test your knowledge!',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 20),
@@ -30,7 +30,7 @@ class HomeScreen extends StatelessWidget {
                 );
               },
               child: Text(
-                'Juguemos',
+                'Play',
                 style: TextStyle(fontSize: 20, color: Colors.white),
               ),
             ),

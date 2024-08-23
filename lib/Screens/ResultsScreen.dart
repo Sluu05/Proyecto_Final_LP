@@ -13,7 +13,7 @@ class ResultsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Resultados'),
+        title: Text('Results'),
         backgroundColor: Colors.green,
       ),
       body: Padding(
@@ -22,7 +22,7 @@ class ResultsScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              '¡Resultados!',
+              '¡Results!',
               style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
@@ -39,7 +39,7 @@ class ResultsScreen extends StatelessWidget {
             ),
             SizedBox(height: 20),
             Text(
-              '$correctAnswers / $totalQuestions respuestas correctas',
+              '$correctAnswers / $totalQuestions correct answers',
               style: TextStyle(fontSize: 24),
             ),
             SizedBox(height: 40),
@@ -58,7 +58,7 @@ class ResultsScreen extends StatelessWidget {
                 );
               },
               child: Text(
-                'Volver a Categorías',
+                'Return to Categories',
                 style: TextStyle(fontSize: 18, color: Colors.white),
               ),
             ),
@@ -75,7 +75,7 @@ class ResultsScreen extends StatelessWidget {
                 Navigator.pop(context); 
               },
               child: Text(
-                'Jugar de Nuevo',
+                'Play again',
                 style: TextStyle(fontSize: 18, color: Colors.white),
               ),
             ),
